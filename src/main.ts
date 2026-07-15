@@ -233,6 +233,7 @@ async function resolveYiyans(): Promise<Yiyan[]> {
   // 合并普通 + 恋爱
   return [
     ...normalYiyans,
+    ...loveYiyans,
     ...loveYiyans
   ]
 }
