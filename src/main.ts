@@ -195,14 +195,46 @@ function resolveDouyinTargetNames(): string[] {
  * 解析一言数据列表。
  */
 async function resolveYiyans(): Promise<Yiyan[]> {
-  const yiyanText = await readFile('assets/yiyan.json', 'utf8')
-  const yiyans = JSON.parse(yiyanText) as Yiyan[]
+  // 普通一言
+  const normalText = await readFile(
+    'assets/yiyan.json',
+    'utf8'
+  )
 
-  if (!Array.isArray(yiyans) || yiyans.length === 0) {
+  const normalYiyans = JSON.parse(normalText) as Yiyan[]
+
+
+  // 恋爱一言
+  const loveText = await readFile(
+    'assets/yiyan-love.json',
+    'utf8'
+  )
+
+  const loveYiyans = JSON.parse(loveText) as Yiyan[]
+
+
+  // 检查数据
+  if (
+    !Array.isArray(normalYiyans) ||
+    normalYiyans.length === 0
+  ) {
     throw new Error('assets/yiyan.json 必须是非空数组')
   }
 
-  return yiyans
+
+  if (
+    !Array.isArray(loveYiyans) ||
+    loveYiyans.length === 0
+  ) {
+    throw new Error('assets/yiyan-love.json 必须是非空数组')
+  }
+
+
+  // 合并普通 + 恋爱
+  return [
+    ...normalYiyans,
+    ...loveYiyans
+  ]
 }
 
 /**
