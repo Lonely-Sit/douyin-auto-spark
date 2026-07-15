@@ -72,7 +72,9 @@ async function main(): Promise<void> {
       await page.keyboard.insertText(pickRandomYiyan(yiyans).hitokoto)
       await page.keyboard.press('Enter')
       console.log(`已发送消息：${name}`)
-      await page.waitForTimeout(1000)
+      await page.waitForTimeout(
+      3000 + Math.random() * 5000
+      )
     }
 
     await page.waitForTimeout(5000)
